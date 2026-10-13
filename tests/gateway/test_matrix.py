@@ -925,9 +925,9 @@ async def test_room_state_read_failure_adds_no_note_and_keeps_baseline(tmp_path)
     await _prepare_room_turn(runner, source, "$first", persist=True)
 
     failing = _room_context_adapter(_OPS_STATE)
-    failing._client.get_state_event = AsyncMock(side_effect=asyncio.TimeoutError())
-    failing._client.state_store.has_full_member_list = AsyncMock(side_effect=asyncio.TimeoutError())
-    failing._client.get_joined_members = AsyncMock(side_effect=asyncio.TimeoutError())
+    failing._client.get_state_event = AsyncMock(side_effect=TimeoutError())
+    failing._client.state_store.has_full_member_list = AsyncMock(side_effect=TimeoutError())
+    failing._client.get_joined_members = AsyncMock(side_effect=TimeoutError())
     runner.adapters = {Platform.MATRIX: failing}
     failed = await _prepare_room_turn(runner, source, "$failed", persist=True)
 
@@ -1020,12 +1020,12 @@ _NAMED_ROOM_STATE = {**_OPS_STATE, "m.room.canonical_alias": {"alias": "#ops:exa
 
 
 def _fail_state_reads(adapter, state):
-    adapter._client.get_state_event = AsyncMock(side_effect=asyncio.TimeoutError())
+    adapter._client.get_state_event = AsyncMock(side_effect=TimeoutError())
 
 
 def _fail_member_reads(adapter, state):
-    adapter._client.state_store.has_full_member_list = AsyncMock(side_effect=asyncio.TimeoutError())
-    adapter._client.get_joined_members = AsyncMock(side_effect=asyncio.TimeoutError())
+    adapter._client.state_store.has_full_member_list = AsyncMock(side_effect=TimeoutError())
+    adapter._client.get_joined_members = AsyncMock(side_effect=TimeoutError())
 
 
 def _empty_room_names(adapter, state):

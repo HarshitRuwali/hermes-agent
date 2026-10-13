@@ -55,7 +55,7 @@ def test_shell_runner_forwards_docker_settings_without_credentials(tmp_path):
     root = Path(__file__).resolve().parents[2]
     result = subprocess.run(
         ["bash", str(root / "scripts/run_tests.sh"), "-j", "1", str(case)],
-        cwd=tmp_path, capture_output=True, text=True, timeout=180,
+        cwd=tmp_path, capture_output=True, text=True, timeout=180, check=False,
         env={**os.environ, **docker_settings, "HERMES_PYTHON": sys.executable,
              "HERMES_TEST_FILE_RETRIES": "0", "DOCKER_AUTH_CONFIG": "private-registry-token",
              "DOCKER_CERT_PATH": str(tmp_path / "docker-certificates"), "DOCKER_TLS_VERIFY": "1"},

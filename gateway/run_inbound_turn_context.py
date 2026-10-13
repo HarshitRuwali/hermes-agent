@@ -18,7 +18,7 @@ from agent.message_metadata import CHANNEL_STATE_METADATA_KEY, newest_channel_st
 from gateway.platforms.base import BasePlatformAdapter
 
 
-def channel_state_metadata(event: Any) -> Dict[str, Any]:
+def channel_state_metadata(event: Any) -> dict[str, Any]:
     """The user row's ``display_metadata`` entry for the snapshot that *event* reported, if any."""
     state = getattr(event, "channel_state", None)
     return {} if state is None else {CHANNEL_STATE_METADATA_KEY: state}
@@ -31,7 +31,7 @@ def reports_turn_context(adapter: Any) -> bool:
 
 
 async def prepend_turn_context_note(
-    runner: Any, *, event: Any, source: Any, session_key: str, history: List[Dict[str, Any]],
+    runner: Any, *, event: Any, source: Any, session_key: str, history: list[dict[str, Any]],
     message_text: str,
 ) -> str:
     """Ask the adapter that received *event* what changed in the chat, record its snapshot on the

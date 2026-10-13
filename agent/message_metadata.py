@@ -131,13 +131,13 @@ def _channel_state(msg: Any) -> Optional[dict]:
     return state if isinstance(state, dict) else None
 
 
-def newest_channel_state(messages: List[Any]) -> Optional[dict]:
+def newest_channel_state(messages: list[Any]) -> Optional[dict]:
     """The channel state saved on the newest row of *messages* that has one."""
     return next((state for msg in reversed(messages) if (state := _channel_state(msg)) is not None), None)
 
 
 def keep_newest_channel_state(
-    original: List[Any], rewritten: List[Any], carrier: MutableMapping[str, Any],
+    original: list[Any], rewritten: list[Any], carrier: MutableMapping[str, Any],
 ) -> None:
     """Record the newest channel state of *original* on *carrier* when *rewritten* no longer has it as
     its newest. *carrier* is the row of *rewritten* that replaces the removed rows (a compaction summary

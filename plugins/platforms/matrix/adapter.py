@@ -864,7 +864,7 @@ class MatrixAdapter(BasePlatformAdapter):
         self._room_identity_cache_max = 256
         # Last successful state read per room and event type. Kept apart from _room_identities
         # because _absorb_sync clears that cache whenever a sync response includes joined rooms.
-        self._room_state_values: Dict[str, Dict[str, Optional[str]]] = {}
+        self._room_state_values: dict[str, dict[str, Optional[str]]] = {}
         self._event_context_cache = MatrixEventContextCache()
         self._thread_fallbacks = ThreadFallbackTracker()
         try:
@@ -2316,7 +2316,7 @@ class MatrixAdapter(BasePlatformAdapter):
 
     async def prepare_turn_context(
         self, event: MessageEvent, *, origin: SessionSource | None,
-        acknowledged_state: Dict[str, Any] | None, first_turn: bool,
+        acknowledged_state: dict[str, Any] | None, first_turn: bool,
     ) -> TurnContextUpdate | None:
         if event.internal or self._client is None:
             return None
@@ -2983,7 +2983,7 @@ class MatrixAdapter(BasePlatformAdapter):
                 return {str(member) for member in members}
         return None
 
-    async def _get_room_member_profiles(self, room_id: str) -> Optional[Dict[Any, Any]]:
+    async def _get_room_member_profiles(self, room_id: str) -> Optional[dict[Any, Any]]:
         state_store = getattr(self._client, "state_store", None) if self._client else None
         if state_store:
             with suppress(Exception):
@@ -3003,7 +3003,7 @@ class MatrixAdapter(BasePlatformAdapter):
                     return dict(profiles)
         return None
 
-    def _compute_room_display_name(self, profiles: Optional[Dict[Any, Any]]) -> Optional[str]:
+    def _compute_room_display_name(self, profiles: Optional[dict[Any, Any]]) -> Optional[str]:
         if not profiles:
             return None
 
@@ -3046,13 +3046,13 @@ class MatrixAdapter(BasePlatformAdapter):
                 return None
             raise
 
-    async def _read_room_member_profiles(self, room_id: str) -> tuple[Optional[set[str]], Optional[Dict[Any, Any]]]:
+    async def _read_room_member_profiles(self, room_id: str) -> tuple[Optional[set[str]], Optional[dict[Any, Any]]]:
         members = await self._get_room_members(room_id)
         profiles = await self._get_room_member_profiles(room_id) if members is not None else None
         return members, profiles
 
     def _remember_room_names(
-        self, room_id: str, reads: Dict[str, Any], profiles: Optional[Dict[Any, Any]],
+        self, room_id: str, reads: dict[str, Any], profiles: Optional[dict[Any, Any]],
     ) -> tuple[Optional[str], Optional[str], Optional[str], Optional[str]]:
         """The room's name, topic, canonical alias and member-derived name. *reads* maps each event type
         in ``_ROOM_NAME_STATE_KEYS`` to its content or to the exception that its read raised, and

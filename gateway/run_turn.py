@@ -2052,7 +2052,7 @@ class GatewayTurnMixin:
         title_user_message: Optional[str] = None
 
     async def _hmwa_prepare_turn(
-        self: "GatewayRunner",
+        self: GatewayRunner,
         event,
         source,
         session_entry,
@@ -2159,7 +2159,7 @@ class GatewayTurnMixin:
         ), _session_env_tokens
 
     async def _handle_message_with_agent(
-        self: "GatewayRunner", event, source, _quick_key: str, run_generation: int
+        self: GatewayRunner, event, source, _quick_key: str, run_generation: int
     ):
         """Inner handler that runs under the _running_agents sentinel guard."""
         _msg_start_time = time.time()

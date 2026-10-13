@@ -3536,7 +3536,7 @@ class BasePlatformAdapter(ABC):
 
     async def prepare_turn_context(
         self, event: MessageEvent, *, origin: Optional[SessionSource],
-        acknowledged_state: Optional[Dict[str, Any]], first_turn: bool,
+        acknowledged_state: Optional[dict[str, Any]], first_turn: bool,
     ) -> Optional[TurnContextUpdate]:
         """Report context for this turn: changes to the chat since the conversation last
         acknowledged its state, and earlier messages that a new session has not seen.

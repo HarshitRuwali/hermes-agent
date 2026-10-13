@@ -186,7 +186,7 @@ def _matrix_adapter(room_id: str, *, is_dm: bool, monkeypatch):
     members = ["@hermes:example.org", "@alice:example.org"] + ([] if is_dm else ["@bob:example.org"])
     adapter._client = SimpleNamespace(
         send_message_event=AsyncMock(return_value="$seed"), crypto=None,
-        get_joined_members=AsyncMock(return_value=dict.fromkeys(members, {})))
+        get_joined_members=AsyncMock(return_value={member: {} for member in members}))
     adapter._get_display_name = AsyncMock(return_value="alice")
     adapter._background_read_receipt = lambda *_a: None
     adapter.handle_message = AsyncMock()

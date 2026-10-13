@@ -207,7 +207,7 @@ def _gateway_image_tag(images: _ImageStore, prebuilt: str | None, build: Callabl
 
 
 def _build_gateway_image(tag: str) -> None:
-    result = subprocess.run(build_command(tag, {LABEL_SESSION_ID: SESSION_ID}), capture_output=True, text=True)
+    result = subprocess.run(build_command(tag, {LABEL_SESSION_ID: SESSION_ID}), capture_output=True, text=True, check=False)
     assert result.returncode == 0, f"Linux gateway image build failed:\n{result.stdout[-6000:]}\n{result.stderr[-6000:]}"
 
 

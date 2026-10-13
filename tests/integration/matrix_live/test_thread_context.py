@@ -68,7 +68,7 @@ def test_thread_fallback_keeps_model_context_in_its_thread(
             for label in ("A", "B"):
                 try:
                     await asyncio.wait_for(send_thread(label), timeout=15)
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     pytest.fail(
                         f"No Matrix thread {label} reply after 15 seconds. Gateway logs:\n"
                         + gateway.container.get_wrapped_container().logs().decode(errors="replace")[-6000:]

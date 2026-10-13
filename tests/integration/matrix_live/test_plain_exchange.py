@@ -40,7 +40,7 @@ def test_plain_room_exchange(
                     break
                 try:
                     response = await asyncio.wait_for(client.sync(timeout=250), timeout=remaining)
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     break
                 joined = response.rooms.join.get(room_id)
                 if not joined:

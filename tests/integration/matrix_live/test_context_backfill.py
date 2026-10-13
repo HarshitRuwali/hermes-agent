@@ -151,7 +151,7 @@ def test_room_mention_recovers_unaddressed_messages(
     try:
         try:
             asyncio.run(asyncio.wait_for(exchange(), timeout=15))
-        except asyncio.TimeoutError:
+        except TimeoutError:
             pytest.fail(
                 f"Matrix room catch-up exceeded 15 seconds during {stage}. "
                 f"Model requests: {len(group_gateway.model.main_requests())}. Gateway logs:\n"
@@ -217,7 +217,7 @@ def test_thread_mention_recovers_only_its_earlier_messages(
     try:
         try:
             asyncio.run(asyncio.wait_for(exchange(), timeout=15))
-        except asyncio.TimeoutError:
+        except TimeoutError:
             pytest.fail(
                 "Matrix thread catch-up exceeded 15 seconds. Gateway logs:\n"
                 + group_gateway.container

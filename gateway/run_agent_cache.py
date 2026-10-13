@@ -705,7 +705,7 @@ class GatewayAgentCacheMixin:
             # Durability protects cache continuity; a store outage must not block the user turn.
             logger.debug("Failed to persist prompt pin for %s", session_key, exc_info=True)
 
-    def _prompt_session_context(self: "GatewayRunner", context, session_entry):
+    def _prompt_session_context(self: GatewayRunner, context, session_entry):
         """*context* for the session-context prompt. When the receiving adapter reports chat changes
         through ``prepare_turn_context``, the prompt keeps the names and topic from the session
         origin, so a rename does not rewrite the system prompt. Tools read *context* itself and see
